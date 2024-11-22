@@ -1,10 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<head th:replace="~{fragments :: head}"></head>
+
+<body class="container  body-content">
+<h1 th:text="${'User: ' + user.name}">Default Title</h1>
+
+<nav th:replace="~{fragments :: page-header}"></nav>
+
+<div class="user-listing">
+    <p th:text="${'Name: ' + user.name}"></p>
+    <p> Jobs:
+    <ul>
+        <li th:each="user : ${users}">
+            <a th:href="@{'/view/' + ${user.id}}" th:text="${user.name}"></a>
+        </li>
+    </ul>
+    </p>
+</div>
+
 
 </body>
 </html>

@@ -1,15 +1,16 @@
-package project.scarfino.ImageDB.models.data;
+package project.scarfino.ImageDB.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import project.scarfino.ImageDB.models.AbstractEntity;
-import project.scarfino.ImageDB.models.Image;
 
 @Entity
 public class User extends AbstractEntity {
+
+    @NotNull
+    String username;
 
     @NotNull(message = "Password is required.")
     @Size(min=8, message = "Password must be at least 8 characters long.")
@@ -24,17 +25,24 @@ public class User extends AbstractEntity {
 
     public User(String username, String password, Image image) {
         super();
-        this.setName(username);
+        this.username = username;
         this.password = password;
         this.userImage = image;
     }
 
+    public User(String username, String password) {
+        super();
+        this.setName(username);
+        this.password = password;
+        this.userImage = getUserImage();
+    }
 
-    public @NotNull @Size(min = 6) String getPassword() {
+
+    public @NotNull @Size(min = 8) String getPassword() {
         return password;
     }
 
-    public void setPassword(@NotNull @Size(min = 6) String password) {
+    public void setPassword(@NotNull @Size(min = 8) String password) {
         this.password = password;
     }
 
