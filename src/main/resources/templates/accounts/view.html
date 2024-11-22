@@ -3,16 +3,16 @@
 <head th:replace="~{fragments :: head}"></head>
 
 <body class="container  body-content">
-<h1 th:text="${'User: ' + user.name}">Default Title</h1>
+<h1 th:text="${'Account: ' + account.accountName}">Default Title</h1>
 
 <nav th:replace="~{fragments :: page-header}"></nav>
 
-<div class="user-listing">
-    <p th:text="${'Name: ' + user.name}"></p>
+<div class="account-listing">
+    <p th:text="${'Name: ' + account.accountName}"></p>
     <p> Jobs:
     <ul>
-        <li th:each="user : ${users}">
-            <a th:href="@{'/view/' + ${user.id}}" th:text="${user.name}"></a>
+        <li th:each="account : ${accounts}">
+            <a th:href="@{'/view/' + ${account.id}}" th:text="${account.accountName}"></a>
         </li>
     </ul>
     </p>

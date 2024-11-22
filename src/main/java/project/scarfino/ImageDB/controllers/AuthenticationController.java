@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import project.scarfino.ImageDB.models.User;
+import project.scarfino.ImageDB.models.data.AccountRepository;
 import project.scarfino.ImageDB.models.data.UserRepository;
 import project.scarfino.ImageDB.models.data.dto.LoginFormDTO;
 import project.scarfino.ImageDB.models.data.dto.RegisterFormDTO;

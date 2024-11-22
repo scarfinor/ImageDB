@@ -2,10 +2,14 @@ package project.scarfino.ImageDB.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Lob;
+import jakarta.validation.constraints.NotNull;
 import org.apache.tomcat.util.codec.binary.Base64;
 
 @Entity
 public class Image extends AbstractEntity {
+
+    @NotNull
+    private String name;
 
     @Lob
     private byte[] imageData;
@@ -13,12 +17,18 @@ public class Image extends AbstractEntity {
     public Image(){};
 
     public Image(String name, byte[] imageData) {
-
         super();
-        this.setName(name);
+        this.name = name;
         this.imageData = imageData;
     }
 
+    public @NotNull String getName() {
+        return name;
+    }
+
+    public void setName(@NotNull String name) {
+        this.name = name;
+    }
 
     public byte[] getImageData() {
         return imageData;

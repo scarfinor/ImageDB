@@ -8,15 +8,15 @@
 
 <form method="post" style="max-width:600px;">
     <div class="form-group">
-        <label th:for="name">User Name</label>
-        <input class="form-control" th:field="${user.name}" />
-        <span th:errors="${user.name}" class="error"></span>
+        <label th:for="name">Account Name</label>
+        <input class="form-control" th:field="${account.id}" />
+        <span th:errors="${account.accountName}" class="error"></span>
     </div>
 
     <div class="form-group">
-        <label th:for="password">User Password</label>
-        <input class="form-control" th:field="${user.password}" />
-        <span th:errors="${user.password}" class="error"></span>
+        <label th:for="password">Account Password</label>
+        <input class="form-control" th:field="${account.password}" />
+        <span th:errors="${account.password}" class="error"></span>
     </div>
 
     <p>Image Upload Form</p>
@@ -33,7 +33,7 @@
     </div>>
 
 
-    <input type="submit" value="Add User" />
+    <input type="submit" value="Add Account" />
 </form>
 
 </body>

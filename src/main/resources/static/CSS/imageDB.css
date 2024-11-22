@@ -23,17 +23,17 @@ tr:nth-child(odd) {
     margin-right: auto;
 }
 
-table.user-listing {
+table.account-listing {
     margin: 30px auto;
     border: 1px solid #e4e4e4;
     width: 80%;
 }
 
-table.user-listing td:first-child {
+table.account-listing td:first-child {
     font-weight: bold;
 }
 
-table.user-listing td:last-child {
+table.account-listing td:last-child {
     width: 80%;
 }
 

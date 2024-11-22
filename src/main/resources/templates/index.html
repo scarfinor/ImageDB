@@ -7,10 +7,10 @@
 <div th:replace="fragments :: page-header"></div>
 
 <div class="container body-content">
-  <h2>Users</h2>
+  <h2>Accounts</h2>
   <ul>
-    <li th:each="user : ${users}">
-      <a th:href="@{'/view/' + ${user.id}}" th:text="${user.name}"></a>
+    <li th:each="account : ${accounts}">
+      <a th:href="@{'/view/' + ${account.id}}" th:text="${account.accountName}"></a>
     </li>
   </ul>
 </div>
