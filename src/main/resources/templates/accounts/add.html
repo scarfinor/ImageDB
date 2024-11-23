@@ -1,39 +1,31 @@
-<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
-<body class="container  body-content">
-<h1>Add User</h1>
+<body class="container body-content">
 
 <nav th:replace="~{fragments :: page-header}"></nav>
 
-<form method="post" style="max-width:600px;">
+<form method="post" action="/accounts/add" enctype="multipart/form-data" style="max-width:250px; margin-top: 40px;"> <!-- Added margin-top to push down the form -->
     <div class="form-group">
-        <label th:for="name">Account Name</label>
-        <input class="form-control" th:field="${account.id}" />
+        <label th:for="accountName">Account Name</label>
+        <input class="form-control" th:field="${account.accountName}" id="accountName" />
         <span th:errors="${account.accountName}" class="error"></span>
     </div>
 
     <div class="form-group">
         <label th:for="password">Account Password</label>
-        <input class="form-control" th:field="${account.password}" />
+        <input class="form-control" th:field="${account.password}" type="password" id="password" />
         <span th:errors="${account.password}" class="error"></span>
     </div>
 
     <p>Image Upload Form</p>
-
     <div class="form-group">
-        <label th:for="file" class="label" enctype="multipart/form-data">Select image:</label>
-        <input type="file" name="file" id="profile-image" accept="image/png, image/jpeg" required/>
-
-
+        <label for="profile-image" class="label">Select image:</label>
+        <input type="file" name="file" id="profile-image" accept="image/png, image/jpeg" required />
         <label th:for="fileName">Image Name:</label>
-        <input type="text" id="fileName" name="fileName" required>
+        <input type="text" id="fileName" name="fileName" required />
+    </div>
 
-
-    </div>>
-
-
-    <input type="submit" value="Add Account" />
+    <input type="submit" value="Add Account" class="btn btn-primary" />
 </form>
 
 </body>

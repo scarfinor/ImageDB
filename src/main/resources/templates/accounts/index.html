@@ -1,22 +1,16 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="~{fragments :: head}">
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+
 <body>
 
-<div th:replace="~{fragments :: page-header}"></div>
-
-<p th:unless="${accounts} and ${accounts.size()}">no Accounts!</p>
-
+<div th:replace="fragments :: page-header" class="fixed-top"></div>
 <div class="container body-content">
-  <h2>Users</h2>
+  <h2>Accounts</h2>
   <ul>
     <li th:each="account : ${accounts}">
-      <a th:href="@{'/accounts/view/' + ${account.id}}" th:text="${account.accountName}"></a>
+      <a th:href="@{'/view/' + ${account.id}}" th:text="${account.accountName}"></a>
     </li>
   </ul>
-  <a th:href="@{'/accounts/add'}">Add Account</a>
-
 </div>
 
 </body>

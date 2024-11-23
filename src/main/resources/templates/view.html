@@ -3,15 +3,16 @@
 <head th:replace="~{fragments :: head}"></head>
 
 <body class="container  body-content">
-<h1 th:text="${'Account: ' + account.accountName}">Default Title</h1>
+<h1 th:text="${'Accounts: ' + account.accountName}">Default Title</h1>
 
 <nav th:replace="~{fragments :: page-header}"></nav>
 
 <div class="account-listing">
-    <p th:text="${'Name: ' + account.accountName}"></p>
-    <p th:text="${'Image: ' + account.accountImage}"></p>
+  <p> ID:
+    <<a th:href="@{/view/{accountId}(accountId=${account.id})}" th:text="${account.accountName}"></a>
+  </p>
+  <p th:text="${'Name: ' + account.accountName}"></p>
 </div>
-
 
 </body>
 </html>

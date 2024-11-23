@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository;
 import project.scarfino.ImageDB.models.Image;
 
 @Repository
-@Transactional
     public interface ImageRepository extends CrudRepository<Image, Integer> {
     }

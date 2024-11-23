@@ -9,16 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import project.scarfino.ImageDB.models.Account;
 import project.scarfino.ImageDB.models.Image;
-import project.scarfino.ImageDB.models.User;
 import project.scarfino.ImageDB.models.data.AccountRepository;
 import project.scarfino.ImageDB.models.data.ImageRepository;
-import project.scarfino.ImageDB.models.data.UserRepository;
-
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 
 @Controller
@@ -26,14 +22,21 @@ import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 public class AccountController {
 
     @Autowired
-    private AccountRepository accountRepository;
-    private ImageRepository imageRepository;
+    private final AccountRepository accountRepository;
 
-    @GetMapping("")
+    @Autowired
+    private final ImageRepository imageRepository;
+
+    @Autowired
+    public AccountController(AccountRepository accountRepository, ImageRepository imageRepository) {
+        this.accountRepository = accountRepository;
+        this.imageRepository = imageRepository;
+    }
+
+    @GetMapping("index")
     public String index(Model model){
         model.addAttribute("title", "All Accounts");
-        model.addAttribute("account", accountRepository.findAll());
-
+        model.addAttribute("accounts", accountRepository.findAll());
         return "accounts/index";
     }
 
@@ -46,35 +49,37 @@ public class AccountController {
     }
 
     @PostMapping(value = "add", consumes = {"application/x-www-form-urlencoded", MULTIPART_FORM_DATA_VALUE })
-    public String processAddAccountForm(@ModelAttribute @Valid Account newAccount, @RequestParam MultipartFile file, @RequestParam String fileName, Errors errors, Model model) {
+    public String processAddAccountForm(@ModelAttribute @Valid Account newAccount,
+                                        @RequestParam MultipartFile file,
+                                        @RequestParam String fileName,
+                                        Errors errors, Model model) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Account");
-            return "Accounts/add";
+            return "accounts/add";  // Ensure the return is for the correct template
         }
+
         Image tempImage = new Image();
         saveImage(tempImage, fileName, file);
         imageRepository.save(tempImage);
         newAccount.setAccountImage(tempImage);
         accountRepository.save(newAccount);
 
-        return "redirect:";
+        return "redirect:/accounts";  // This will redirect to /accounts
     }
 
     @GetMapping("view/{accountId}")
-    public String displayViewAccount (Model model, @PathVariable int accountId) {
-
+    public String displayViewAccount(Model model, @PathVariable int accountId) {
         Optional<Account> optionalAccount = accountRepository.findById(accountId);
         if (optionalAccount.isPresent()) {
-            Account account = (Account) optionalAccount.get();
+            Account account = optionalAccount.get();
             model.addAttribute("account", account);
-            return "accounts/view";
+
+            return "view";
         } else {
-            return "redirect:../";
+            return "redirect:/accounts";
         }
-
     }
-
 
     public void saveImage(Image imageEntity, String name, MultipartFile file) {
         try {
