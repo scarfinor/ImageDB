@@ -33,11 +33,11 @@ public class AccountController {
         this.imageRepository = imageRepository;
     }
 
-    @GetMapping("index")
-    public String index(Model model){
-        model.addAttribute("title", "All Accounts");
-        model.addAttribute("accounts", accountRepository.findAll());
-        return "accounts/index";
+    @GetMapping("overview")
+    public String overview(Model model){
+        model.addAttribute("title", "Account Overview");
+        model.addAttribute("account", accountRepository.findAll());
+        return "accounts/overview";
     }
 
     @GetMapping("add")
@@ -56,7 +56,7 @@ public class AccountController {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Account");
-            return "accounts/add";  // Ensure the return is for the correct template
+            return "accounts/add";
         }
 
         Image tempImage = new Image();
@@ -65,31 +65,35 @@ public class AccountController {
         newAccount.setAccountImage(tempImage);
         accountRepository.save(newAccount);
 
-        return "redirect:/accounts";  // This will redirect to /accounts
+        return "redirect:../";
     }
 
     @GetMapping("view/{accountId}")
     public String displayViewAccount(Model model, @PathVariable int accountId) {
-        Optional<Account> optionalAccount = accountRepository.findById(accountId);
+        Optional optionalAccount = accountRepository.findById(accountId);
         if (optionalAccount.isPresent()) {
-            Account account = optionalAccount.get();
+            Account account = (Account) optionalAccount.get();
             model.addAttribute("account", account);
-
             return "view";
         } else {
-            return "redirect:/accounts";
+            return "redirect:../";
         }
     }
 
     public void saveImage(Image imageEntity, String name, MultipartFile file) {
         try {
+            byte[] imageData = file.getBytes();
+            if (imageData.length == 0) {
+                throw new IllegalArgumentException("Uploaded file is empty");
+            }
             imageEntity.setName(name);
-            imageEntity.setImageData(file.getBytes());
+            imageEntity.setImageData(imageData);
             imageRepository.save(imageEntity);
+
+            Logger.getLogger(Image.class.getName()).log(Level.INFO, "Image saved with size: " + imageData.length);
         } catch (IOException ex) {
             Logger.getLogger(Image.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
 }

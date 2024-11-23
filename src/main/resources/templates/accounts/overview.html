@@ -1,0 +1,33 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+</head>
+
+<body>
+
+<div th:replace="fragments :: page-header" class="fixed-top"></div>
+
+<div class="container body-content" style="margin-top: 40px;">
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+      <th>Account ID</th>
+      <th>Account Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="account : ${account}">
+      <td>
+        <p>Account ID:
+          <a th:href="@{/account/{id}(id=${account.id})}" th:text="${account.id}"></a>
+        </p>
+      </td>
+      <td>
+        <p th:text="${'Name: ' + account.accountName}"></p>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

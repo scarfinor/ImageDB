@@ -32,7 +32,7 @@ public class Account extends AbstractEntity {
         this.password = password;
     }
 
-    public Image getAccountImageImage() {
+    public Image getAccountImage() {
         return accountImage;
     }
 

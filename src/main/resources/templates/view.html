@@ -9,9 +9,15 @@
 
 <div class="account-listing">
   <p> ID:
-    <<a th:href="@{/view/{accountId}(accountId=${account.id})}" th:text="${account.accountName}"></a>
+    <a th:href="@{/view/{accountId}(accountId=${account.id})}" th:text="${account.id}"></a>
   </p>
-  <p th:text="${'Name: ' + account.accountName}"></p>
+  <p> Name:
+    <a th:href="@{/view/{accountId}(accountId=${account.id})}" th:text="${account.accountName}"></a>
+  </p>
+  <p> Image:
+    <img th:src="@{data:image/png;base64,${account.accountImage.getImageDataBase64()}}" alt="Account Image"/>
+    <img th:src="@{'data:image/*;base64,'+${account.accountImage.getImageDataBase64()}}" alt="images from database" width="50%" height="50%"/>
+  </p>
 </div>
 
 </body>
